@@ -1,0 +1,10 @@
+.env
+.vscode
+*.jpg
+*.png
+*.wav
+*.mp3
+*.csv
+*.pt
+__pycache__
+*clone*
