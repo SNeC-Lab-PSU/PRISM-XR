@@ -8,12 +8,46 @@ We are excited to open source our implementation for **academic and non-commerci
 
 ---
 
-## Availability
-The open-sourced scripts and assets in this repository will be made publicly available after **IEEE VR 2026**, scheduled for **March 21 to 25, 2026**.
+## Prerequisites
+- FFmpeg
+    - Required before running the Whisper model.
+    - Ensure FFmpeg is added to the system PATH.
+- Python 3.10
+    - Both Windows and Linux system could run the server script with proper configuration, while the configuration in Linux system is easier with less unexpected issues.
+- Unity 2022.3.58f1
+    - **Porcupine Unity Package** is required to be imported into the project for the voice wake up command. Download the package by following the instructions [from the official documentation](https://github.com/Picovoice/porcupine/tree/a5a57062b2fa8b766912b787c43c3afd5efa9a4d/binding/unity).
+- Meta Quest 3
 
-Feel free to contact us for **early access** if you are interested in collaborating or exploring the implementation ahead of the public release.
+---
 
-We appreciate your patience and look forward to sharing the implementation with the broader community following the presentation.
+## Preparation
+
+- Make sure all [prerequisites](#prerequisites) are met.
+- Clone the repository.
+- Create `.env` file in the root directory of the project with the following content:
+    ```
+    OPENAI_API_KEY=YOUR_OPENAI_API_KEY
+    ```
+- Obtain an access key from [Porcupine](https://console.picovoice.ai/) and enter this key in the `PORCUPINE_ACCESS_KEY` variable in **Utils** script in Unity project for Quest devices.
+- Create a virtual environment in Python 3.10 (e.g., [using Anaconda](https://docs.anaconda.com/working-with-conda/environments/#creating-an-environment)) and install the required packages.
+    ```bash
+    pip install -r requirements.txt
+    ```
+- Run `python openAIWrapper.py` in the virtual environment to test the OpenAI API connection.
+- Download Unity Hub and install Unity 2022.3.58f1 in Unity Hub with Android Build Support module.
+
+---
+
+## Steps to Run the Project
+
+1. Run the server by running `python pyServer.py` in the root directory of the project, ensure the server is running before running the Unity application.
+    - Run `python echoclient.py` in the virtual environment to test the server.
+2. Open the folder `LLM-Quest` in Unity Hub with Unity 2022.3.58f1. At the first time running the project, you may find a pop-up window suggesting compilation errors and entering safe mode. Click **Enter Safe Mode**. 
+3. Install Porcupine Unity Package in the Package Manager by following the instructions [from the official documentation](https://github.com/Picovoice/porcupine/tree/a5a57062b2fa8b766912b787c43c3afd5efa9a4d/binding/unity). Make sure your access key has been filled in the `Utils.cs` file.
+4. Unity Editor will automatically exit safe mode after the installation, you may find a pop-up window asking to restart Unity due to changes of OVR Plugin. Click **Restart Editor** to complete the update.
+5. Navigate to `Assets/Scenes` folder, open the `MainWorld` scene.
+6. Change the Server URL with proper IP and PORT of **WebSocketClient** attached to **ControlCenter** GameObject in Unity Inspector window. **NOTE**: The default Server IP is `localhost`, which should be changed to the IP address of the computer running the server code, e.g., `192.168.1.1`, the Server Port and Server Port Low Level should be changed to port numbers that are allowed under your group policy.
+7. Either press the Play button to test the scene in Editor or connect a Meta Quest device to deploy the application.
 
 ---
 
@@ -55,4 +89,4 @@ For any questions, clarifications, or collaboration opportunities, please reach 
 - GitHub: [JiangongChen](https://github.com/JiangongChen) or [MingyuZhu](https://github.com/mintrrey)
 - Institution: The Pennsylvania State University
 
-Thank you for your interest in PRISM-XR! Stay tuned for the upcoming release and join us in crafting the future of interactive XR worlds.
+Thank you for your interest in PRISM-XR! Stay tuned for future updates and enhancements.
